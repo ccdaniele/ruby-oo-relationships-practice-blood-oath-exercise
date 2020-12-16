@@ -4,16 +4,13 @@ class Cult
     attr_reader :founding_year
 
     @@all = []
-    #@@list_of_followers = []
-    @@cult_population = 0
+  
 
     def initialize(name, location, founding_year, slogan)
         @name = name
         @location = location
         @founding_year = founding_year
         @slogan = slogan
-        #@cult_population += 1
-        @list_of_followers = []
         @@all << self
     end
 
@@ -21,6 +18,11 @@ class Cult
     def self.all
         @@all 
     end
+    #takes in an argument of a Follower instance and adds them to this cult's list of followers
+    def recruit_follower(follower)
+        BloodOath.new(follower,self)
+    end
+
 
     # Takes a String argument that is a name and returns a Cult instance whose name 
     # matches that argument
@@ -39,5 +41,13 @@ class Cult
     def self.find_by_founding_year(founding_year)
         self.all.find {|cult_instance| cult_instance.founding_year == founding_year}
     end
+    #returns an Integer that is the number of followers in this cult
+    def cult_population
+       my_bloodoaths = BloodOath.all.select {|bloodoath_instance| bloodoath_instance.cult == self}
+       my_followers = my_bloodoaths.map {|bloodoath_instance|bloodoath_instance.follower}
+       my_followers.uniq.count
+    end
+
+    
 
 end
