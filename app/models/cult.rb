@@ -43,11 +43,34 @@ class Cult
     end
     #returns an Integer that is the number of followers in this cult
     def cult_population
-       my_bloodoaths = BloodOath.all.select {|bloodoath_instance| bloodoath_instance.cult == self}
-       my_followers = my_bloodoaths.map {|bloodoath_instance|bloodoath_instance.follower}
-       my_followers.uniq.count
+        my_followers.count
+    end
+    
+    def my_bloodoaths 
+        BloodOath.all.select {|bloodoath_instance| bloodoath_instance.cult == self}
+    end
+        
+    def my_followers 
+        my_bloodoaths.map {|cult_instance|cult_instance.follower}.uniq
     end
 
-    
+    def average_age
+        my_age = my_followers.map {|follower_instance|follower_instance.age}
+        my_age.sum.to_f / my_age.size
+    end
+
+    def my_followers_mottos
+        my_followers.map{|followers_instance|followers_instance.life_motto}
+    end
+
+    def self.least_popular
+        self.all.min_by {|cult_instance|cult_instance.cult_population}
+    end
+
+    def self.my_locations
+        locations = self.all.map {|cult_instance|cult_instance.location}
+        locations.max_by{|location|locations.count(location)}
+    end
+
 
 end

@@ -17,7 +17,10 @@ class BloodOath
         @@all
     end
 
-
+    def self.first_oath
+        first_oath = BloodOath.all.find{|instance|instance.follower}
+        first_oath.follower
+    end
 
 
 
