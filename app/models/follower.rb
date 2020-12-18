@@ -55,7 +55,7 @@ class Follower
         self.all.sort_by{|follower|follower.cults.count}.reverse
     end
 
-    def 
+
 
 
 

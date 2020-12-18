@@ -8,7 +8,7 @@ class BloodOath
     def initialize(cult, follower)
         @cult = cult
         @follower = follower
-        @initialization_date = Date.new
+        @initialization_date = Date.today
 
         @@all << self
     end
